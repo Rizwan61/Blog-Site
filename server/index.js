@@ -10,6 +10,9 @@ const UserModel = require("./modules/UserModel")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const secretKey = "23sf&%T23423sdfasfdaxcvaxfgsadfsdf#O#d;((23234))";
+const CreatePost = require("./modules/CreatePost");
+const Comment = require("./modules/Comment")
+const Category = require("./modules/Category")
 
 const port = 4000;
 
@@ -71,50 +74,294 @@ app.post("/signup", upload.single('image'), async (req, res) => {
 
 // User Login API
 
-    app.post("/login" , async (req,res) =>{
-        const {email ,password} = req.body;
+app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
 
-       
 
-        try {
-             // confirm the user is registered or not with email
 
-             const userExist  = await UserModel.findOne({email:email});
-             console.log(userExist)
+    try {
+        // confirm the user is registered or not with email
 
-             
+        const userExist = await UserModel.findOne({ email: email });
+        console.log(userExist)
 
-             if(userExist  === null){
-                return res.json({
-                    status:"faild",
-                    message:"Authentication failed"
-                })
-             }
-             // confirm password
-             const confirmPass = await bcrypt.compare(password, userExist.password);
-             if(confirmPass === false){
-                return res.json({
-                    status:"false",
-                    message:"Authentication failed"
-                })
-             }
 
-            
-          // generate token
 
-          const token = jwt.sign({id:userExist._id}, secretKey)
-          // return response
+        if (userExist === null) {
+            return res.json({
+                status: "faild",
+                message: "Authentication failed"
+            })
+        }
+        // confirm password
+        const confirmPass = await bcrypt.compare(password, userExist.password);
+        if (confirmPass === false) {
+            return res.json({
+                status: "false",
+                message: "Authentication failed"
+            })
+        }
+
+
+        // generate token
+
+        const token = jwt.sign({ id: userExist._id }, secretKey)
+        // return response
         res.status(201).json({
             status: "success",
             message: "Logged in successfully",
-             token: token
+            token: token
         })
-       
-            
-        } catch (error) {
-            
+
+
+    } catch (error) {
+        if (error.name === 'ValidationError') {
+            // Mongoose validation error
+            const errors = {};
+            for (const field in error.errors) {
+                errors[field] = error.errors[field].message;
+            }
+            res.status(200).json({
+                status: false,
+                errors: errors
+            });
+        } else {
+            // Other types of errors
+            res.status(500).json({ error: 'Internal Server Error' });
         }
-    })
+
+    }
+})
+
+
+
+// Create New Post
+app.post("/createpost", upload.single('image'), async (req, res) => {
+    const { title, description, category, status } = req.body;
+    // console.log(req.body)
+
+    try {
+        const extension = req.file.mimetype.split("/")[1];
+        if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "avif") {
+            const filName = req.file.filename + "." + extension;
+            req.body.image = filName;
+
+            fs.rename(req.file.path, `upload/${filName}`, () => {
+                console.log("file Uploaded with name")
+            });
+
+        } else {
+            fs.unlink(req.file.path, () => {
+                console.log("file is deleted")
+            })
+        }
+
+
+
+        console.log(req.body.image)
+
+        // create user
+        await CreatePost.create({
+            title: title, description: description, category: category, image: req.body.image, status: status
+        })
+
+
+        // return response
+        res.status(201).json({
+            status: "success",
+            message: "New Psot successfully Added"
+
+
+        })
+
+    } catch (error) {
+        if (error.name === 'ValidationError') {
+            // Mongoose validation error
+            const errors = {};
+            for (const field in error.errors) {
+                errors[field] = error.errors[field].message;
+            }
+            res.status(200).json({
+                status: false,
+                errors: errors
+            });
+        } else {
+            // Other types of errors
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+})
+
+
+
+// Get All Post API
+
+app.get("/createpost", async (req, res) => {
+    try {
+        const createpost = await CreatePost.find({});
+        return res.status(200).json({
+            status: true,
+            createpost: createpost
+        })
+    } catch (error) {
+        return res.status(404).json({
+            status: false,
+            message: error.message
+        })
+    }
+})
+
+// Get All Post by User_ID API
+
+app.get("/createpost", async (req, res) => {
+    try {
+        const createpost = await CreatePost.find({});
+        return res.status(200).json({
+            status: true,
+            createpost: createpost
+        })
+    } catch (error) {
+        return res.status(404).json({
+            status: false,
+            message: error.message
+        })
+    }
+})
+
+
+// Comments Post API
+
+app.post("/comment", async (req, res) => {
+    const { userid, postid, comment, status } = req.body;
+    console.log(req.body)
+
+    try {
+
+
+        // New Comment
+        await Comment.create({
+            userid: userid, postid: postid, comment: comment, status: status
+
+        })
+
+
+        // return response
+        res.status(201).json({
+            status: "success",
+            message: "Comment Added successfully",
+
+        })
+
+    } catch (error) {
+        if (error.name === 'ValidationError') {
+            // Mongoose validation error
+            const errors = {};
+            for (const field in error.errors) {
+                errors[field] = error.errors[field].message;
+            }
+            res.status(200).json({
+                status: false,
+                errors: errors
+            });
+        } else {
+            // Other types of errors
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+
+    }
+})
+
+// Get All Comment API
+
+app.get("/comment", async (req, res) => {
+    try {
+        const comment = await Comment.find({});
+        return res.status(200).json({
+            status: true,
+            comment: comment
+        })
+    } catch (error) {
+        return res.status(404).json({
+            status: false,
+            message: error.message
+        })
+    }
+})
+
+// Create New Category
+app.post("/category", upload.single('image'), async (req, res) => {
+    const { title } = req.body;
+    // console.log(req.body)
+
+    try {
+        const extension = req.file.mimetype.split("/")[1];
+        if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "avif") {
+            const filName = req.file.filename + "." + extension;
+            req.body.image = filName;
+
+            fs.rename(req.file.path, `upload/${filName}`, () => {
+                console.log("file Uploaded with name")
+            });
+
+        } else {
+            fs.unlink(req.file.path, () => {
+                console.log("file is deleted")
+            })
+        }
+
+
+
+        console.log(req.body.image)
+
+        // create user
+        await Category.create({
+            title: title,  image: req.body.image
+        })
+
+
+        // return response
+        res.status(201).json({
+            status: "success",
+            message: "New Category successfully Added"
+
+
+        })
+
+    } catch (error) {
+        if (error.name === 'ValidationError') {
+            // Mongoose validation error
+            const errors = {};
+            for (const field in error.errors) {
+                errors[field] = error.errors[field].message;
+            }
+            res.status(200).json({
+                status: false,
+                errors: errors
+            });
+        } else {
+            // Other types of errors
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+})
+
+// Get All Comment API
+
+app.get("/category", async (req, res) => {
+    try {
+        const category = await Category.find({});
+        return res.status(200).json({
+            status: true,
+            category: category
+        })
+    } catch (error) {
+        return res.status(404).json({
+            status: false,
+            message: error.message
+        })
+    }
+})
+
 
 mongoose.connect("mongodb://localhost:27017/blogdb").then(() => {
 
