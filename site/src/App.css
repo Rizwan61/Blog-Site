@@ -63,13 +63,50 @@ font-size: 4rem;
     background-position: 0 0, 0 100%;
     background-repeat: no-repeat;
     background-size: 100% 2px;
-    background-image: linear-gradient(to right, #eb3c5a 0%, #f67831 100%), linear-gradient(to right, #eb3c5a 0%, #f67831 100%);
-    transition-duration: 1000ms;
     line-height: 45px;
     position: relative;
     z-index: 1;
+    border-top: 2px solid #f67831;
+    border-bottom: 2px solid #eb3c5a;
+    background-color: #eb3c5a;
 }
 a{
   text-decoration: none;
     background-color: transparent;
+}
+.spad{
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.about-pic{
+  position: relative;
+}
+.about-pic .play-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-41.5px, -41.5px);
+}
+.about-text {
+  padding-top: 15px;
+  padding-left: 40px;
+}
+.about-text h2 {
+  font-size: 40px;
+  color: #111111;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+.about-text p.first-para {
+  margin-bottom: 10px;
+  
+}
+.about-text p.second-para {
+  margin-bottom: 50px;
+ 
+}
+.about-text p{
+  color: #6b6b6b;
+  font-size: 16px;
 }

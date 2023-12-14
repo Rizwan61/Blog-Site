@@ -18,7 +18,7 @@ export default function Hero() {
                                         Gutim comes packed with the user-friendly BMI Calculator
                                         <br /> shortcode which lets
                                     </p>
-                                    <a href="#" className="primary-btn">
+                                    <a href="#" className="primary-btn mb-2">
                                         Read More
                                     </a>
                                 </div>
