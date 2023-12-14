@@ -1,42 +1,75 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.bgcolor{
+  background-color: #4c4c4c;
+}
+.navbar-brand , .nav-link{
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+}
+.nav-link {
+ 
+  font-size: 16px;
+  
+}
+.nav-button{
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+button {
+  background: none;
+  text-decoration: inherit;
+  font-family: system-ui;
+  font-size: 1rem;
+  padding: 0.5rem 2rem;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.border-gradient {
+  border: 10px solid;
+  border-image-slice: 1;
+  border-width: 5px;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.border-gradient-purple {
+  border-image-source: linear-gradient(to right, #ec3f59, #f67831);
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.herobg{
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  line-height: 40px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+h6 {
+  color: #f67831;
 }
-
-.card {
-  padding: 2em;
+h1 ,p {
+  color: #fff;
 }
-
-.read-the-docs {
-  color: #888;
+h1{
+font-size: 4rem;
+}
+.primary-btn{
+  display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0 12px;
+    color: #ffffff;
+    text-align: center;
+    width: 160px;
+    height: 46px;
+    border-left: 2px solid #eb3c5a;
+    border-right: 2px solid #f67831;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-position: 0 0, 0 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 2px;
+    background-image: linear-gradient(to right, #eb3c5a 0%, #f67831 100%), linear-gradient(to right, #eb3c5a 0%, #f67831 100%);
+    transition-duration: 1000ms;
+    line-height: 45px;
+    position: relative;
+    z-index: 1;
+}
+a{
+  text-decoration: none;
+    background-color: transparent;
 }
