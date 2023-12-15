@@ -110,3 +110,100 @@ a{
   color: #6b6b6b;
   font-size: 16px;
 }
+.services-pic {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.services-item.bg-gray {
+  background: #1e1e1e;
+}
+.services-item.pd-b {
+  padding-top: 118px;
+}
+.services-item img {
+  position: absolute;
+  left: 70px;
+  top: 80px;
+}
+.services-item h4 {
+  font-size: 22px;
+  color: #ffffff;
+  font-weight: 600;
+  margin-top: 36px;
+  margin-bottom: 20px;
+}
+.services-item p {
+  color: #bdbdbd;
+  margin-bottom: 0;
+}
+.services-item {
+  margin-left: -15px;
+  margin-right: -15px;
+  background: #141414;
+  padding-top: 130px;
+  position: relative;
+  padding-left: 70px;
+  padding-right: 45px;
+  height: 330px;
+}
+.services-item.pd-b {
+  padding-top: 118px;
+}
+.services-pic img {
+  height: 660px;
+  min-width: 100%;
+}
+.classes-section {
+  padding-top: 90px;
+  padding-bottom: 95px;
+}
+.section-title {
+  text-align: center;
+  margin-bottom: 45px;
+}
+.section-title h2 {
+  color: #111111;
+  font-size: 40px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.owl-carousel.owl-loaded {
+  display: block;
+}
+.owl-carousel .owl-stage-outer {
+  position: relative;
+  overflow: hidden;
+}
+.owl-carousel .owl-stage {
+  position: relative;
+  -ms-touch-action: pan-Y;
+  touch-action: manipulation;
+}
+.set-bg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+}
+.single-class-item .si-text {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  padding-left: 30px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+.single-class-item .si-text h4 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff;
+}
+.single-class-item .si-text span {
+  font-size: 14px;
+  color: #ffffff;
+}
+.single-class-item .si-text span {
+  font-size: 14px;
+  color: #ffffff;
+}
