@@ -77,7 +77,8 @@ const GetsAllPosts =  async (req, res) => {
     } catch (error) {
         return res.status(404).json({
             status: false,
-            message: error.message
+            message: error.message,
+            allpost:allpost
         })
     }
 }

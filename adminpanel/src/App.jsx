@@ -8,6 +8,7 @@ import CreatePost from './components/CreatePost';
 import CreateCategory from './components/CreateCategory';
 import MainProfile from './pages/MainProfile';
 import Homedash from './components/Homedash';
+import Comment from './components/Comment';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
 
           <Route path="createpost" element={<CreatePost/>} />
           <Route path="category" element={<CreateCategory/>} />
+          <Route path="comment" element={<Comment/>} />
         </Route>
       </Routes>
     

@@ -6,10 +6,11 @@ const express = require('express')
 const app = express()
 const fs = require('fs')
 const mongoose = require("mongoose");
-
+const bodyParser = require('body-parser');
+const cors = require("cors")
 
 const CreatePost = require("./models/CreatePost");
-const Comment = require("./models/Comment")
+
 const Category = require("./models/Category")
 
 
@@ -17,8 +18,11 @@ const port = 4000;
 
 const userRoutes = require("./routes/UserRoures");
 
+
 // Middle ware
 app.use(express.json())
+app.use(bodyParser.json());
+app.use(cors())
 
 
 // import routes
@@ -243,47 +247,68 @@ app.use(express.static(path.join(__dirname, "upload")));
 // })
 
 
-// // Comments Post API
+ // Comments Post API
 
-// app.post("/comment", async (req, res) => {
-//     const { userid, postid, comment, status } = req.body;
-//     console.log(req.body)
+ app.post("/comment", async (req, res) => {
+     const {  postid, comment, status } = req.body;
+    console.log(req.body)
 
-//     try {
-
-
-//         // New Comment
-//         await Comment.create({
-//             userid: userid, postid: postid, comment: comment, status: status
-
-//         })
+     try {
 
 
-//         // return response
-//         res.status(201).json({
-//             status: "success",
-//             message: "Comment Added successfully",
+        //   New Comment
+         await Comment.create({
+              postid: postid, comment: comment, status: status
 
-//         })
+         })
 
-//     } catch (error) {
-//         if (error.name === 'ValidationError') {
-//             // Mongoose validation error
-//             const errors = {};
-//             for (const field in error.errors) {
-//                 errors[field] = error.errors[field].message;
-//             }
-//             res.status(200).json({
-//                 status: false,
-//                 errors: errors
-//             });
-//         } else {
-//             // Other types of errors
-//             res.status(500).json({ error: 'Internal Server Error' });
-//         }
 
-//     }
-// })
+         
+        res.status(201).json({
+             status: "success",
+            message: "Comment Added successfully",
+
+        })
+
+     } catch (error) {
+        if (error.name === 'ValidationError') {
+             // Mongoose validation error
+             const errors = {};
+             for (const field in error.errors) {
+                 errors[field] = error.errors[field].message;
+             }
+             res.status(200).json({
+                 status: false,
+                 errors: errors
+             });
+        } else {
+            //   Other types of errors
+             res.status(500).json({ error: 'Internal Server Error' });         }
+
+     }
+})
+
+//  delete comments
+
+app.delete('/comment/:commentId', async (req, res) => {
+    const commentId = req.params.commentId;
+console.log(commentId); 
+ 
+try {
+    await Comment.findByIdAndDelete(commentId)
+
+    return res.status(200).json({
+
+      status: true,
+      message: "Comment is Deleted"
+    })
+    
+} catch (error) {
+    
+}
+   
+  
+  });
 
 // Get All Comment API
 

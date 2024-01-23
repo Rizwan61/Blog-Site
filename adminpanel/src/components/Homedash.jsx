@@ -48,9 +48,9 @@ const renderHeader = () => {
 };
 
   useEffect(() => {
-    axios.get("https://fakestoreapi.com/products").then((res) => {
-      setProducts(res.data);
-      console.log(res.data);
+    axios.get("http://localhost:4000/user/allposts").then((res) => {
+      setProducts(res.data.allpost);
+      console.log(res.data.allpost);
     })
   }, []);
 
@@ -80,13 +80,13 @@ const renderHeader = () => {
         <div>Dashboard</div>
         <div className="card mx-auto mt-3  bg-blue-100" style={{width:"950px"}}>
           <DataTable value={products} filters={filters} globalFilterFields={['title', 'price']} header={header} showGridlines={true} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem', backgroundColor: '#9ebdfc' }}>
-            <Column field="id" header="ID" sortable ></Column>
+            <Column field="_id" header="ID" sortable ></Column>
             <Column field="image" header="Image" body={imageBodyTemplate}></Column>
             <Column field="title" filter  header="Name" sortable ></Column>
             <Column field="category" header="Category"></Column>
-            <Column field="price" filter header="Price" sortable></Column>
+          
             <Column field="action" header="Actions" body={actionBodyTemplate}></Column>
-            <Column field="Content" header="Content" ></Column>
+            <Column field="status" header="Status" ></Column>
           </DataTable>
         </div>
       </>

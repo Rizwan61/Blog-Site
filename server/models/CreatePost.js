@@ -7,6 +7,7 @@
     userid:String,
     title:String,
     description:String,
+   
     category:{
       type:String,
       enum:['Mobile','Laptop']
