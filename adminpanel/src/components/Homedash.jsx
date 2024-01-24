@@ -1,7 +1,5 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-
-
 import { Button } from 'primereact/button'
 
 import { DataTable } from 'primereact/datatable';
@@ -59,7 +57,7 @@ const renderHeader = () => {
   }
 
   const imageBodyTemplate = (product) => {
-    return <img src={product.image} alt={product.image} className=" h-4rem shadow-2 border-round" />;
+    return <img src={`http://localhost:4000/${product.image}`} alt={product.image} className=" h-4rem shadow-2 border-round" />;
   };
 
   const actionBodyTemplate = (product) => {
@@ -83,7 +81,7 @@ const renderHeader = () => {
             <Column field="_id" header="ID" sortable ></Column>
             <Column field="image" header="Image" body={imageBodyTemplate}></Column>
             <Column field="title" filter  header="Name" sortable ></Column>
-            <Column field="category" header="Category"></Column>
+            <Column field="Category" header="Category"></Column>
           
             <Column field="action" header="Actions" body={actionBodyTemplate}></Column>
             <Column field="status" header="Status" ></Column>

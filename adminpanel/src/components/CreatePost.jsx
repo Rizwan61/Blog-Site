@@ -8,6 +8,8 @@ import { useState } from 'react';
 import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { MultiSelect } from 'primereact/multiselect';
+
 
 function CreatePost() {
   const toast = useRef(null);
@@ -17,7 +19,7 @@ function CreatePost() {
   const [loading, setLoading] = useState(false);
   const navigator = useNavigate()
   const [image, setImage] = useState()
-  const [status, setStatus] = useState()
+
 
   const successMsg = () =>
     toast.success("Post successfully created", {
@@ -30,19 +32,25 @@ function CreatePost() {
       progress: undefined,
       theme: "light"
     });
+    const [selectedCategory, setselectedCategory] = useState(null);
 
-  const onUpload = () => {
-    toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
-  };
+    console.log(selectedCategory)
+    const Category = [
+        { name: 'Leptop' },
+        { name: 'Computer' },
+        { name: 'Vivo Mobiles'},
+        { name: 'Oppo Mobiles' }
+    ];
+
   const onHandle = () => {
 
 
 
-    if (title !== "" && category !== "") {
+    if (title !== "") {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", description)
-      formData.append("category", category);
+      formData.append("Category", selectedCategory);
       formData.append("image", image);
       
       setLoading(true);
@@ -77,6 +85,7 @@ function CreatePost() {
 
 
   };
+  
 
   const onFileSelect = (event) => {
     // The 'event.files' array contains the selected files
@@ -95,8 +104,12 @@ function CreatePost() {
         <input id="id" value={title} onChange={(e) => { setTitle(e.target.value) }} type="text" className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" placeholder='Enter the Post Title' />
       </div>
       <div className="field">
-        <label htmlFor="postcategory">Category Type</label>
-        <input id="postcategory" value={category} onChange={(e) => { setCategory(e.target.value) }} type="text" className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" placeholder='Category Type' />
+        <label htmlFor="postcategory">Select Category</label>
+        {/* <input id="postcategory" value={category} onChange={(e) => { setCategory(e.target.value) }} type="text" className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" placeholder='Category Type' /> */}
+        <div className="card flex justify-content-center">
+              <MultiSelect value={selectedCategory} onChange={(e) => { setselectedCategory(e.target.value) }} options={Category}  optionLabel="name"
+                placeholder="Select Category" maxSelectedLabels={3} className="w-full" />
+            </div>
       </div>
 
       <div className="card flex justify-content-center items-center align-items-center  gap-4">

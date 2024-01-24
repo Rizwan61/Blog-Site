@@ -8,9 +8,9 @@
     title:String,
     description:String,
    
-    category:{
+    Category:{
       type:String,
-      enum:['Mobile','Laptop']
+      enum:['Leptop','Computer','Vivo Mobiles','Oppo Mobiles']
     },
     image:String,
     status:{
