@@ -81,10 +81,10 @@ const renderHeader = () => {
             <Column field="_id" header="ID" sortable ></Column>
             <Column field="image" header="Image" body={imageBodyTemplate}></Column>
             <Column field="title" filter  header="Name" sortable ></Column>
-            <Column field="Category" header="Category"></Column>
+            <Column field="category" header="Category"></Column>
           
             <Column field="action" header="Actions" body={actionBodyTemplate}></Column>
-            <Column field="status" header="Status" ></Column>
+          
           </DataTable>
         </div>
       </>

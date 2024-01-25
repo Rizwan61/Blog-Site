@@ -8,11 +8,12 @@
     title:String,
     description:String,
    
-    Category:{
+    category:{
       type:String,
       enum:['Leptop','Computer','Vivo Mobiles','Oppo Mobiles']
     },
     image:String,
+    detail:String,
     status:{
         type:String,
         enum:['true','false']

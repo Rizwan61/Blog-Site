@@ -8,7 +8,7 @@ const CreatePost = require("../models/CreatePost");
 
 // Create New Post
 const newcreatepost =  async (req, res) => {
-    const { title, description,image, category, status } = req.body;
+    const { title, description,image, category, detail, status } = req.body;
     // console.log(req.body)
 console.log(req.body)
 
@@ -34,7 +34,7 @@ console.log(req.body)
 
         // create user
         await CreatePost.create({
-            title: title, description: description, category: category, image: req.body.image, status: status
+            title: title, description: description, category: category, detail:detail, image: req.body.image, status: status
         })
 
 
@@ -86,8 +86,9 @@ const GetsAllPosts =  async (req, res) => {
 // Get All Post by User_ID API
 
 const GetAllPostById = ("/getpostallbyid", async (req, res) => {
+    const id = req.params.id
     try {
-        const createpost = await CreatePost.find({});
+        const createpost = await CreatePost.findById(id);
         return res.status(200).json({
             status: true,
             createpost: createpost

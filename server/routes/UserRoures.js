@@ -17,7 +17,7 @@ userR.post("/signup", upload.single('image'), UserCrtl.signup);
 // Post API
 userR.post("/createpost", upload.single('image'),PostCrtl.newcreatepost);
 userR.get("/allposts",PostCrtl.GetsAllPosts);
-userR.get("/getallpostbyid",PostCrtl.GetAllPostById);
+userR.get("/getallpostbyid/:id",PostCrtl.GetAllPostById);
 // Category API
 userR.post("/createnewcategory", upload.single('image'), categoryCrtl.CreateNewCategory);
 userR.get("/getallcategory",categoryCrtl.GetAllCategory);
