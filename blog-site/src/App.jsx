@@ -24,7 +24,7 @@ function App() {
      <Navbar />
       <Routes>
         <Route path='/' element={ <Home post={post} />}/>
-        <Route path="/details/:pid" element={<Details  />} />
+        <Route path="/details/:pid" element={<Details   />} />
       </Routes>
      
     </>

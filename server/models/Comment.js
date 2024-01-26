@@ -2,11 +2,12 @@ var mongoose = require("mongoose");
 
 var UserSchema = new mongoose.Schema({
     
-    postid:String,
+    pid:String,
     comment:String,
     
     status:{
         type:String,
+        default:'pending',
         enum:['pending','approved']
     }
 },{timestamps:true});

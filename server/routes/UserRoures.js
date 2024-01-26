@@ -17,10 +17,10 @@ userR.post("/signup", upload.single('image'), UserCrtl.signup);
 // Post API
 userR.post("/createpost", upload.single('image'),PostCrtl.newcreatepost);
 userR.get("/allposts",PostCrtl.GetsAllPosts);
-userR.get("/getallpostbyid/:id",PostCrtl.GetAllPostById);
+userR.get("/getpostbyid/:id",PostCrtl.GetPostById);
 // Category API
-userR.post("/createnewcategory", upload.single('image'), categoryCrtl.CreateNewCategory);
-userR.get("/getallcategory",categoryCrtl.GetAllCategory);
+// userR.post("/createnewcategory", upload.single('image'), categoryCrtl.CreateNewCategory);
+userR.get("/getallcategory/computer",categoryCrtl.getAllCategory);
 // Comment API
 userR.delete("/comment/:commentId",commentCrtl.DelComment)
 userR.post("/comment",commentCrtl.NewComment)

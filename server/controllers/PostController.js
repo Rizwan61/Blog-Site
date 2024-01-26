@@ -85,7 +85,7 @@ const GetsAllPosts =  async (req, res) => {
 
 // Get All Post by User_ID API
 
-const GetAllPostById = ("/getpostallbyid", async (req, res) => {
+const GetPostById = ("/getpostbyid", async (req, res) => {
     const id = req.params.id
     try {
         const createpost = await CreatePost.findById(id);
@@ -108,5 +108,5 @@ const GetAllPostById = ("/getpostallbyid", async (req, res) => {
 module.exports = {
     newcreatepost,
     GetsAllPosts,
-    GetAllPostById
+    GetPostById
 }

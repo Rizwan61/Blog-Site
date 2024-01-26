@@ -4,23 +4,24 @@ const Comment = require("../models/Comment")
 // Comments Post API
 
 const NewComment = async (req, res) => {
-    const { userid, postid, comment, status } = req.body;
+    const {  pid, comment } = req.body;
     console.log(req.body)
 
     try {
 
 
         // New Comment
-        await Comment.create({
-            userid: userid, postid: postid, comment: comment, status: status
+       const data= await Comment.create({
+             pid: pid, comment: comment
 
         })
 
 
         // return response
-        res.status(201).json({
+        res.status(200).json({
             status: "success",
             message: "Comment Added successfully",
+            data:data
 
         })
 

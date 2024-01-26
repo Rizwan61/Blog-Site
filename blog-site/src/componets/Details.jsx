@@ -2,6 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import createDOMPurify from 'dompurify'
+import Comment from "./comment";
 
 
 
@@ -12,34 +13,28 @@ function Details(props) {
     const [comment, setComment] = useState()
     const params = useParams();
 
-
-
-    const Handlecomment =()=>{
-        useEffect(() => {
-            axios.post(`http://localhost:4000/user/comment`,{
-                comment
-            })
-                .then((response) => {
-                    if (response.status == 200) {
-    
-                        setComment(response.data);
-                    }
-                });
-        }, []);
-
-    }
-
     useEffect(() => {
-        axios.get(`http://localhost:4000/user/getallpostbyid/${params.pid}`)
+        axios.get(`http://localhost:4000/user/getpostbyid/${params.pid}`)
             .then((response) => {
                 if (response.status == 200) {
 
                     setPost(response.data.createpost);
                 }
             });
-    }, []);
+    }, [params.pid]);
 
-   
+    const Handlecomment = () => {
+
+
+        axios.post(`http://localhost:4000/user/comment`, {
+            comment: comment,
+            pid: params.pid
+        }).then((res) => {
+            console.log(res)
+        })
+
+
+    }
 
     if (post === null) {
         return (
@@ -86,14 +81,14 @@ function Details(props) {
             <div className="container">
                 <div className="row">
                     <div className="col">
-                        <form className="mb-5">
-                        <div className="textarea">
+                        <form className="mb-5" onSubmit={ e => e.preventDefault()}>
+                            <div className="textarea">
                                 <label htmlFor="textarea" className="my-3 fs-1 fw-blod">Comments*</label>
-                                <textarea className="form-control" required placeholder="Leave a comment here" id="textarea" rows={12} ></textarea>
+                                <textarea className="form-control" onChange={(e) => { setComment(e.target.value) }} required placeholder="Leave a comment here" id="textarea" rows={5} ></textarea>
 
                             </div>
 
-                           
+
                             <button type="submit" onClick={Handlecomment} className="btn btn-primary">
                                 Submit
                             </button>
