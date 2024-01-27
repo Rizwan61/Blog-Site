@@ -1,7 +1,7 @@
 
 const fs = require('fs')
 const CreatePost = require("../models/CreatePost");
-
+const categoryM=require('../models/Category')
 
 
 
@@ -68,8 +68,14 @@ console.log(req.body)
 // Get All Post API
 
 const GetsAllPosts =  async (req, res) => {
+    const query ={}
+    const category = req.params.category;
+
+    if(category !== undefined){
+        query['category'] = category;
+    }
     try {
-        const allpost = await CreatePost.find({});
+        const allpost = await CreatePost.find(query).sort({ createdAt: -1 })
         return res.status(200).json({
             status: true,
             allpost: allpost
@@ -102,11 +108,23 @@ const GetPostById = ("/getpostbyid", async (req, res) => {
 })
 
 
+const getCategories = async (req, res) => {
+
+    try {
+        const categories = await categoryM.find();
+        return res.json(categories);
+    } catch (error) {
+        console.log(error.message)
+    }
+};
+
+
 
 
 
 module.exports = {
     newcreatepost,
     GetsAllPosts,
-    GetPostById
+    GetPostById,
+    getCategories
 }
