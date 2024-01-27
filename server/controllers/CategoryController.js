@@ -5,33 +5,34 @@ const Category = require("../models/Category")
 
 // Create New Category
 const CreateNewCategory = async (req, res) => {
-    const { title } = req.body;
+    const { name } = req.body;
    
 
 
     try {
-        const extension = req.file.mimetype.split("/")[1];
-        if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "avif") {
-            const filName = req.file.filename + "." + extension;
-            req.body.image = filName;
+        // const extension = req.file.mimetype.split("/")[1];
+        // if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "avif") {
+        //     const filName = req.file.filename + "." + extension;
+        //     req.body.image = filName;
 
-            fs.rename(req.file.path, `upload/${filName}`, () => {
-                console.log("file Uploaded with name")
-            });
+        //     fs.rename(req.file.path, `upload/${filName}`, () => {
+        //         console.log("file Uploaded with name")
+        //     });
 
-        } else {
-            fs.unlink(req.file.path, () => {
-                console.log("file is deleted")
-            })
-        }
+        // } else {
+        //     fs.unlink(req.file.path, () => {
+        //         console.log("file is deleted")
+        //     })
+        // }
 
 
 
-        console.log(req.body.image)
+        // console.log(req.body.image)
 
         // create user
         await Category.create({
-            title: title,  image: req.body.image
+            name: name
+            //  image: req.body.image
         })
 
 

@@ -15,7 +15,7 @@ function App() {
   
 
   useEffect(() => {
-    axios.get("http://localhost:4000/user/allposts").then((res) => {
+    axios.get("http://localhost:4000/user/posts").then((res) => {
       setPost(res.data.allpost);
       console.log(res.data.allpost);
     })
@@ -26,8 +26,10 @@ function App() {
     <>
      <Navigation />
       <Routes>
-        <Route path='/' element={ <Home post={post} />}/>
+        {/* <Route path='/' element={ <Home post={post} />}/> */}
         <Route path="/details/:pid" element={<Details   />} />
+        {/* <Route path="/:category?"  element={ <Card post={post} />} /> */}
+
         <Route path="/:category?"  element={ <Home post={post} />} />
       </Routes>
      

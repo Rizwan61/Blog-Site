@@ -63,6 +63,8 @@ console.log(req.body)
         }
     }
 }
+// getall category
+
 
 
 // Get All Post API

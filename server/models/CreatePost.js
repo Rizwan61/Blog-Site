@@ -10,10 +10,10 @@
    
     category:{
       type:String,
-      enum:['Leptop','Computer','Vivo Mobiles','Oppo Mobiles']
+     
     },
     image:String,
-    detail:String,
+    sumary:String,
     status:{
         type:String,
         enum:['true','false']

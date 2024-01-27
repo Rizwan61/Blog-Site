@@ -16,11 +16,14 @@ userR.post("/login", UserCrtl.login);
 userR.post("/signup", upload.single('image'), UserCrtl.signup);
 // Post API
 userR.post("/createpost", upload.single('image'),PostCrtl.newcreatepost);
-userR.get("/allposts",PostCrtl.GetsAllPosts);
+// userR.get("/allposts",PostCrtl.GetsAllPosts);
 userR.get("/getpostbyid/:id",PostCrtl.GetPostById);
 // Category API
 // userR.post("/createnewcategory", upload.single('image'), categoryCrtl.CreateNewCategory);
-userR.get("/getallcategory/computer",categoryCrtl.getAllCategory);
+userR.post("/createnewcategory", categoryCrtl.CreateNewCategory);
+// userR.get("/getallcategory/computer",categoryCrtl.getAllCategory);
+userR.get("/posts/:category?", PostCrtl.GetsAllPosts)
+userR.get("/categories/all", PostCrtl.getCategories);
 // Comment API
 userR.delete("/comment/:commentId",commentCrtl.DelComment)
 userR.post("/comment",commentCrtl.NewComment)

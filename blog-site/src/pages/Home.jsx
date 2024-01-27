@@ -1,13 +1,25 @@
-
-
-import React, { useEffect } from 'react'
-
+import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import axios from 'axios'
 import { Link } from "react-router-dom";
 import createDOMPurify from 'dompurify'
-
+import { useParams } from 'react-router';
 
  
 function Home(props) {
+    const params = useParams()
+    const [post, setPost] = useState([])
+  
+
+  useEffect(() => {
+    axios.get(`http://localhost:4000/user/posts/${ (params.category !== undefined) ? params.category : ''}`).then((res) => {
+      
+      setPost((res.data.allpost))
+      console.log(post)
+    })
+
+  }, [params.category])
 
 
 
@@ -17,7 +29,7 @@ function Home(props) {
 
 
             {
-                props.post.map((element, index) => {
+                post.map((element, index) => {
                     return (
                         <div className="container">
                             <div className="row">

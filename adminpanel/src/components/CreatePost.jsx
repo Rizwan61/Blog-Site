@@ -9,6 +9,7 @@ import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { InputTextarea } from 'primereact/inputtextarea';
+import { useEffect } from 'react';
 
 
 
@@ -19,10 +20,16 @@ function CreatePost() {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("")
   const [loading, setLoading] = useState(false);
- 
+  const [categories, setCategories] = useState([]);
   const navigator = useNavigate()
   const [image, setImage] = useState()
-  const [detail, setDetail] = useState('');
+  const [sumary, setSumary] = useState('');
+
+  useEffect(() => {
+    axios.get("http://localhost:4000/user/categories/all").then((res) => {
+      setCategories(res.data);
+    })
+  }, [])
 
 
   const successMsg = () =>
@@ -36,22 +43,23 @@ function CreatePost() {
       progress: undefined,
       theme: "light"
     });
-  
+
 
   const onHandle = () => {
 
 
 
     if (title !== "") {
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("description", description)
-      formData.append("category", category);
-      formData.append("image", image);
-      formData.append("detail", detail);
+
 
       setLoading(true);
-      axios.post(`http://localhost:4000/user/createpost`, formData, {
+      axios.post(`http://localhost:4000/user/createpost`, {
+        title, title,
+        description, description,
+        category, category,
+        image, image,
+        sumary, sumary
+      }, {
         headers: {
           "Content-Type": "multipart/form-data"
 
@@ -100,16 +108,15 @@ function CreatePost() {
         <label htmlFor="id">Post Title</label>
         <input id="id" value={title} onChange={(e) => { setTitle(e.target.value) }} type="text" className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" placeholder='Enter the Post Title' />
       </div>
-      <div className="field">
-        <label htmlFor="postcategory">Select Category</label>
-
-
+      <div className="field col-12 ">
+        <label htmlFor="state">Catagory</label>
         <select id="state" value={category} onChange={(e) => { setCategory(e.target.value) }} className="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" >
-          <option></option>
-          <option>Leptop</option>
-          <option>Computer</option>
-          <option>Vivo Mobiles</option>
-          <option>Oppo Mobiles</option>
+          {
+            categories.map((cat) => {
+              return <option value={cat.name}>{cat.name}</option>
+            })
+          }
+
         </select>
 
         {/* <input id="postcategory" value={category} onChange={(e) => { setCategory(e.target.value) }} type="text" className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" placeholder='Category Type' /> */}
@@ -120,7 +127,7 @@ function CreatePost() {
       </div>
       <div className="field">
         <label htmlFor="id">Summary</label>
-        <InputTextarea value={detail} onChange={(e) => setDetail(e.target.value)} rows={5} cols={30} className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
+        <InputTextarea value={sumary} onChange={(e) => setSumary(e.target.value)} rows={5} cols={30} className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" />
       </div>
 
 

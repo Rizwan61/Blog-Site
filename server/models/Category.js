@@ -1,8 +1,7 @@
 var mongoose = require("mongoose");
 
 var UserSchema = new mongoose.Schema({
-    title:String,
-    image:String,
+    name:String
 },{timestamps:true});
 
 const Category = mongoose.model('Category',UserSchema);
