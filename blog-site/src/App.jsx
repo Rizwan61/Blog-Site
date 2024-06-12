@@ -15,7 +15,7 @@ function App() {
   
 
   useEffect(() => {
-    axios.get("http://localhost:4000/user/posts").then((res) => {
+    axios.get("http://localhost:4002/api/getpost").then((res) => {
       setPost(res.data.allpost);
       console.log(res.data.allpost);
     })

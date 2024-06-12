@@ -11,6 +11,8 @@ const fs = require('fs')
 const login = async (req, res) => {
     const { email, password } = req.body;
 
+console.log(req.body.email)
+
 
 
     try {
